@@ -1,3 +1,6 @@
+from schemas.user_schema import user_list_schema
+from utils.schema_validator import validate_schema
+
 def test_get_users(api):
     response = api.get("/api/users?page=2")
     assert response.status_code == 200
@@ -37,3 +40,13 @@ def test_update_user(api):
 def test_delete_user(api):
     response = api.delete("/api/users/2")
     assert response.status_code == 204
+
+def test_user_list_schema(api):
+    response = api.get("/api/users?page=2")
+    assert response.status_code == 200
+    validate_schema(response.json(), user_list_schema)
+
+def test_create_user_with_empty_payload(api):
+    response = api.post("/api/users", json={})
+    assert response.status_code == 201  # ReqRes allows it but test what happens
+    assert "id" in response.json()
