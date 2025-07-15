@@ -127,3 +127,6 @@ def test_partial_update_user(api):
 def test_get_user_status(api, user_id, expected_status):
     response = api.get(f"/api/users/{user_id}")
     assert response.status_code == expected_status
+
+
+    #test push to test git workflows actions
