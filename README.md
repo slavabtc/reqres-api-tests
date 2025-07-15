@@ -7,11 +7,12 @@ This project contains automated API tests for the public [ReqRes API](https://re
 - pytest
 - requests
 - allure-pytest
-- GitHub Actions (optional)
+- GitHub Actions 
 
 ## 🧪 How to Run Tests
 
-1. Install dependencies:
-2. Run tests:
-3. Run tests with Allure reporting:
+1. Install dependencies
+2. Run tests
+3. Run tests with Allure reporting
+4. If push happens to the repository branch - master , tests are executed automatically
 
