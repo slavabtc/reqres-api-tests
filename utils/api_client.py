@@ -13,6 +13,9 @@ class APIClient:
     def post(self, endpoint, data=None, json=None, **kwargs):
         return self.session.post(self.base_url + endpoint, data=data, json=json, **kwargs)
 
+    def patch(self, endpoint, data=None, json=None, **kwargs):
+        return self.session.patch(self.base_url + endpoint, data=data, json=json, **kwargs)
+
     def put(self, endpoint, data=None, json=None, **kwargs):
         return self.session.put(self.base_url + endpoint, data=data, json=json, **kwargs)
 
