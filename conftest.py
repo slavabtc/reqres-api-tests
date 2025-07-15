@@ -1,9 +1,7 @@
 import pytest
 from utils.api_client import APIClient
+from config import config
 
 @pytest.fixture(scope="session")
 def api():
-    headers = {
-        "x-api-key": "reqres-free-v1"
-    }
-    return APIClient(base_url="https://reqres.in", headers=headers)
+    return APIClient(base_url=config.BASE_URL, headers=config.DEFAULT_HEADERS)

@@ -1,4 +1,6 @@
 import allure
+import pytest
+
 from schemas.user_schema import user_list_schema
 from utils.schema_validator import validate_schema
 
@@ -44,6 +46,22 @@ def test_create_user(api):
     assert data["name"] == payload["name"]
     assert data["job"] == payload["job"]
     assert "id" in data and "createdAt" in data
+
+@pytest.mark.parametrize(
+    "name, job",
+    [
+        ("Alice", "QA Engineer"),
+        ("Bob", "Automation Lead"),
+        ("Charlie", "Intern")
+    ]
+)
+def test_create_user_variants(api, name, job):
+    payload = {"name": name, "job": job}
+    response = api.post("/api/users", json=payload)
+    data = response.json()
+    assert response.status_code == 201
+    assert data["name"] == name
+    assert data["job"] == job
 
 
 @allure.feature("Users")
@@ -98,3 +116,14 @@ def test_partial_update_user(api):
     assert response.status_code == 200
     assert data["job"] == partial_payload["job"]
     assert "updatedAt" in data
+
+@pytest.mark.parametrize(
+    "user_id, expected_status",
+    [
+        (2, 200),    # valid user
+        (999, 404),  # non-existent user
+    ]
+)
+def test_get_user_status(api, user_id, expected_status):
+    response = api.get(f"/api/users/{user_id}")
+    assert response.status_code == expected_status
